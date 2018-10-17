@@ -49,6 +49,7 @@ include_once( WPSUBTITLE_DIR . 'includes/compat/woocommerce.php' );
 if ( is_admin() ) {
 
 	require_once( WPSUBTITLE_DIR . 'admin/admin.php' );
+	require_once( WPSUBTITLE_DIR . 'includes/term.php' );
 	require_once( WPSUBTITLE_DIR . 'includes/admin/admin-terms.php' );
 
 	$admin_terms = new WPSubtitle_Admin_Terms();

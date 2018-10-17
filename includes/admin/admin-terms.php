@@ -71,12 +71,12 @@ class WPSubtitle_Admin_Terms {
 	 */
 	public function edit_form( $term, $taxonomy ) {
 
-		$title = get_term_meta( $term->term_id,'wps_subtitle', true );
+		$term_subtitle = new WPSubtitle_Term( $term );
 
 		?>
 		<tr class="form-field term-wps-subtitle-wrap">
 			<th scope="row"><label for="wps_subtitle"><?php esc_html_e( 'Subtitle', 'wp-subtitle' ); ?></label></th>
-			<td><input name="wps_subtitle" id="wps_subtitle" type="text" value="<?php echo esc_attr( $title ); ?>" size="40"></td>
+			<td><input name="wps_subtitle" id="wps_subtitle" type="text" value="<?php echo esc_attr( $term_subtitle->get_meta_value() ); ?>" size="40"></td>
 		</tr>
 		<?php
 
@@ -91,7 +91,7 @@ class WPSubtitle_Admin_Terms {
 	 */
 	public function update_term_meta( $term_id ) {
 
-	error_log( $term_id );
+		$term_subtitle = new WPSubtitle_Term( $term_id );
 
 		$term = get_term( $term_id );
 		$tax = get_taxonomy( $term->taxonomy );
@@ -101,15 +101,7 @@ class WPSubtitle_Admin_Terms {
 		}
 
 		if ( isset( $_POST[ 'wps_subtitle' ] ) ) {
-
-			$value = trim( sanitize_text_field( $_POST[ 'wps_subtitle' ] ) );
-
-			if ( '' !== $value ) {
-				update_term_meta( $term_id, 'wps_subtitle', $value );
-			} else {
-				delete_term_meta( $term_id, 'wps_subtitle' );
-			}
-
+			$term_subtitle->update_subtitle( $_POST[ 'wps_subtitle' ] );
 		}
 
 	}
