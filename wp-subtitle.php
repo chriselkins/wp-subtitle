@@ -47,12 +47,19 @@ include_once( WPSUBTITLE_DIR . 'includes/compat/woocommerce.php' );
 
 // Include admin-only functionality
 if ( is_admin() ) {
+
 	require_once( WPSUBTITLE_DIR . 'admin/admin.php' );
+	require_once( WPSUBTITLE_DIR . 'includes/admin/admin-terms.php' );
+
+	$admin_terms = new WPSubtitle_Admin_Terms();
+	$admin_terms->setup_hooks();
+
 	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		// Load AJAX functions here if required...
 	} else {
 		require_once( WPSUBTITLE_DIR . 'admin/pointers.php' );
 	}
+
 }
 
 add_action( 'plugins_loaded', array( 'WPSubtitle', 'load' ) );
