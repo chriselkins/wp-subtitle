@@ -81,4 +81,18 @@ class WPSubtitle_Term {
 
 	}
 
+	/**
+	 * Current User Can Edit
+	 *
+	 * @return  boolean
+	 */
+	public function current_user_can_edit() {
+
+		$term = get_term( $this->term_id );
+		$tax = get_taxonomy( $term->taxonomy );
+
+		return current_user_can( $tax->cap->edit_terms );
+
+	}
+
 }

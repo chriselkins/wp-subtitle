@@ -93,10 +93,7 @@ class WPSubtitle_Admin_Terms {
 
 		$term_subtitle = new WPSubtitle_Term( $term_id );
 
-		$term = get_term( $term_id );
-		$tax = get_taxonomy( $term->taxonomy );
-
-		if ( ! current_user_can( $tax->cap->edit_terms ) ) {
+		if ( ! $term_subtitle->current_user_can_edit() ) {
 			return;
 		}
 
